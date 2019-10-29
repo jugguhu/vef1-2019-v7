@@ -15,7 +15,6 @@
 
  const games = [];
 
-
  /**
   * Byrjar leikinn okkar með því að kalla í play().
   * Eftir að play() klárar þá er boðið notandanum að spila annann leik með confirm()
@@ -23,7 +22,8 @@
   * Ef notandi ýtir á "cancel" þá er sótt niðurstöður með getResults() og þær birtar með alert().
   */
 function start() {
-  play();
+  do play(); while(confirm('Spila aftur?'));
+  alert(getResults());
 }
 
 /**
@@ -41,7 +41,22 @@ function start() {
  * Þarf aðútfæra með lykkju og flæðisstýringum
  */
 function play() {
-  const random = randomNumber(1,100;
+  const random = randomNumber(1,100);
+  count = 0;
+  while(true){
+    count += 1;
+    let input = prompt('Giskið á töluna, hún er á milli 1 og 100'); 
+    let guess = parseGuess(input);
+    if(!guess) break;
+    alert(getResponse(guess, random));
+    if(guess == random){
+      games.push(count)
+      console.log(games);
+      count = 0;
+      break;
+  }
+}
+  
 }
 
 /**
@@ -51,10 +66,11 @@ function play() {
  *     Meðalfjöldi ágiskana var 5"
  * ATH að meðalfjöldi kemur í nýrri línu.
  * Ef enginn leikur var spilaður er skilað:
- *    "Þú spilaðir engann leik >_<"
+ *    "Þú spilaðir engan leik >_<"
  */
 function getResults(){
-
+    if(games.length>0) return 'Þú spilaðir ' + games.length + ' leiki\nMeðalfjöldi ágiskana var ' + calculateAverage();
+    return 'Þú spilaðir engan leik >_<'
 }
 
 /**
@@ -66,7 +82,11 @@ function getResults(){
  * þarf að útfæra með lykkju.
  */
 function calculateAverage(){
-
+  let sum = 0;
+  for(let i = 0; i<games.length; i++){
+     sum += games[i];
+  }
+  return sum/games.length;
 }
 
 /**
@@ -74,7 +94,9 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-
+  let x = parseInt(input, 10);
+  if(x == NaN) x = null;
+  return x;
 }
 
 /**
@@ -93,7 +115,13 @@ function parseGuess(input){
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct){
-  return 'Ekki rétt';
+  if(guess < 0) return 'Ekki rétt';
+  if(guess === correct) return 'Rétt';
+  else if(Math.abs(correct-guess) < 5) return 'Mjög nálægt';
+  else if(Math.abs(correct-guess) < 10) return 'Nálægt';
+  else if(Math.abs(correct-guess) < 20) return 'Frekar langt frá';
+  else if(Math.abs(correct-guess) < 50) return 'Langt frá';
+  return 'Mjög langt frá';
 }
 
 /**
@@ -104,4 +132,4 @@ function randomNumber(min, max) {
 }
 
 // Byrjar leik
-start();
+start()
