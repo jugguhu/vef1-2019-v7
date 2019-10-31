@@ -85,7 +85,7 @@ function calculateAverage(){
   for(let i = 0; i<games.length; i++){
      sum += games[i];
   }
-  return sum/games.length;
+  return (sum/games.length).fixedTo(2);
 }
 
 /**
