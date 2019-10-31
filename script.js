@@ -51,7 +51,6 @@ function play() {
     alert(getResponse(guess, random));
     if(guess == random){
       games.push(count)
-      console.log(games);
       count = 0;
       break;
   }
