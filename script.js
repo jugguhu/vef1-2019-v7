@@ -45,10 +45,10 @@ function play() {
   let count = 0;
   while (true) {
     count += 1;
-    let input = prompt('Giskið á töluna, hún er á milli 1 og 100');
+    const input = prompt('Giskið á töluna, hún er á milli 1 og 100');
+    if (!input) break;
     let guess = parseGuess(input);
     alert(getResponse(guess, random));
-    if (!input) break;
     if (guess == random) {
       games.push(count);
       count = 0;
