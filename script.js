@@ -45,9 +45,9 @@ function play() {
   count = 0;
   while(true){
     count += 1;
-    let input = prompt('Giskið á töluna, hún er á milli 1 og 100'); 
+    let input = prompt('Giskið á töluna, hún er á milli 1 og 100');
+    if(!input) break; 
     let guess = parseGuess(input);
-    if(!guess) break;
     alert(getResponse(guess, random));
     if(guess == random){
       games.push(count)
@@ -94,7 +94,7 @@ function calculateAverage(){
  */
 function parseGuess(input){
   let x = parseInt(input, 10);
-  if(x == NaN) x = null;
+  if(isNaN(input)) return null;
   return x;
 }
 
@@ -114,8 +114,8 @@ function parseGuess(input){
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct){
-  if(guess < 0) return 'Ekki rétt';
-  if(guess === correct) return 'Rétt';
+  if(guess < 0 || guess === null) return 'Ekki rétt';
+  else if(guess === correct) return 'Rétt';
   else if(Math.abs(correct-guess) < 5) return 'Mjög nálægt';
   else if(Math.abs(correct-guess) < 10) return 'Nálægt';
   else if(Math.abs(correct-guess) < 20) return 'Frekar langt frá';
